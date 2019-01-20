@@ -1,0 +1,553 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* For the elements to be distributed equally at each end */
+  overflow: hidden;
+  background-color: #ec7067;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 600px;
+  height: 350px;
+  position: absolute;
+  
+}
+
+.btnTakePhoto {
+  position: relative;
+  height: 47px;
+  border: none;
+  background-color: #f4b943;
+  color: #FFFFFF;
+  display: block;
+  margin-top: 60px;
+  transform: scale(2.5);
+  opacity: 0;
+  margin: 100px auto;
+  transition: transform 1s, opacity 1s;
+  z-index: 8;
+  outline: none;
+  border-radius: 70px;
+}
+
+.btnTakePhoto.animated {
+  animation: btnRotation 0.3s infinite alternate;
+}
+
+@keyframes btnRotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(6deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(-12deg);
+  }
+}
+
+.btnTakePhoto:hover {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #f87f74;
+}
+
+.btnTakePhoto.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.photoBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: none;
+  opacity: 0;
+  transform: scale(0.5);
+  z-index: 10;
+  transition: transform 1s 1s, opacity 1s 1s;
+}
+
+.photoBox.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.photoShell {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.photoShell .supPart {
+  position: absolute;
+  width: 80%;
+  height: 15%;
+  top: 0;
+  right: 0;
+  background-color: #dddddd;
+  border-radius: 1em 1em 0 0;
+}
+
+.photoShell .infPart {
+  position: absolute;
+  width: 100%;
+  height: 85%;
+  top: 15%;
+  left: 0;
+  background-color: #dddddd;
+  border-radius: 1em 0 1em 1em;
+}
+
+.viewFinder {
+  position: absolute;
+  height: 15%;
+  width: 14%;
+  right: 4%;
+  top: 4%;
+  background-color: #333333;
+  padding: 1%;
+  box-sizing: border-box;
+  border-radius: 5%;
+}
+
+.viewFinderScreen {
+  position: relative;
+  height: 100%;
+  background-color: black;
+  border-radius: 5%;
+}
+
+.viewFinderScreen .lightHalo {
+  position: absolute;
+  background-color: #fff;
+  padding: 12%;
+  border-radius: 5em;
+  top: 15%;
+  left: 8%;
+  opacity: 0.2;
+}
+
+.viewFinderScreen .lightHalo + .lightHalo {
+  position: absolute;
+  background-color: #fff;
+  padding: 8%;
+  border-radius: 5em;
+  top: 36%;
+  left: 32%;
+}
+
+.flashLight {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 12%;
+  width: 10%;
+  right: 25%;
+  top: 4%;
+  background-color: #ffffff;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 5%;
+  border: 0.1em solid #000;
+  list-style: none;
+  margin: 0;
+}
+
+.flashLight li {
+  display: block;
+  width: 1px;
+  background-color: #000000;
+  height: 100%;
+}
+
+.whiteFlash {
+  height: 100vh;
+  width: 100%;
+  z-index: 10;
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  transition: opacity 0.3s;
+}
+
+.redLight {
+  position: absolute;
+  background-color: #cc4139;
+  padding: 3%;
+  border-radius: 50em;
+  top: 4%;
+  left: 25%;
+  
+}
+
+.redLightActivated {
+  animation-name: redLightBlinking;
+  animation-duration: 0.2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  
+}
+
+@keyframes redLightBlinking {
+  0% {
+    background-color: #6E2623;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+.blackGrip {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  bottom: 5%;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.blackGrip .decoEffect {
+  position: absolute;
+  width: 30%;
+  height: 20%;
+  background-color: #dddddd;
+  top: 0;
+  right: 0;
+}
+
+.handleGrip {
+  position: absolute;
+  width: 10%;
+  height: 70%;
+  bottom: 0%;
+  left: 20%;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.btnObjective {
+  position: absolute;
+  border: 0.2em solid #cccccc;
+  padding: calc(4% - 0.2em);
+  border-radius: 50em;
+  bottom: 30%;
+  right: 52%;
+}
+
+.subBtnObj1 {
+  position: absolute;
+  background-color: #cccccc;
+  border: 0.2em solid rgba(0, 0, 0, 0.75);
+  top: 0;
+  left: 0;
+  padding: calc(50% - 0.2em);
+  border-radius: 50em;
+}
+
+.wrapperLens {
+  position: absolute;
+  border: 1em solid #cccccc;
+  padding: calc(21% - 1em);
+  border-radius: 50em;
+  bottom: 2%;
+  right: 14%;
+}
+
+.subLens1,
+.subLens2,
+.subLens3,
+.subLens4,
+.lens {
+  position: absolute;
+  border: 0.8em solid #555555;
+  border-radius: 50em;
+  top: -1%;
+  left: -1%;
+}
+
+.subLens1 {
+  border: 0.8em solid #555555;
+  padding: calc(51% - 0.8em); 
+}
+
+.subLens2 {
+  border: 0.1em solid #dddddd;
+  padding: calc(51% - 0.1em);
+}
+
+.subLens3 {
+  border: 1.5em solid #888888;
+  padding: calc(51% - 1.5em);
+}
+
+.subLens4 {
+  border: 1.2em solid #bbbbbb;
+  padding: calc(51% - 1.2em);
+  overflow: hidden;
+}
+
+.lens {
+  background-color: #000;
+  top: 0;
+  left: 0;
+  border: none;
+  padding: 50%;
+}
+
+.lens .lightHalo {
+  position: absolute;
+  background-color: #fff;
+  padding: 12%;
+  border-radius: 5em;
+  top: 20%;
+  left: 15%;
+  opacity: 0.2;
+}
+
+.lens .lightHalo + .lightHalo { 
+  position: absolute;
+  background-color: #fff;
+  padding: 8%;
+  border-radius: 5em;
+  top: 36%;
+  left: 40%;
+}
+
+.opturatorSup,
+.opturatorInf {
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s;
+  background-color: #444444;
+}
+
+.opturatorSup {
+  top: 0;
+  border-bottom: 0.1em solid #000000;
+  transform: translateY(-100%);
+}
+
+.opturatorInf {
+  bottom: 0;
+  border-top: 0.1em solid #000000;
+  transform: translateY(100%);
+}
+
+.closed .opturatorSup,
+.closed .opturatorInf {
+  transform: translateY(0);
+}
+
+.camera {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.wrapperTriggerCam {
+  width: 15%;
+  height: 12%;
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  overflow: hidden;
+}
+
+.triggerCamera {
+  width: 80%;
+  height: 80%;
+  left: 10%;
+  bottom: 0;
+  background-color: #dddddd;
+  position: absolute;
+  border-radius: 50% 50% 0 0;
+  border-top: .1em solid rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s;
+}
+
+.wrapperTriggerCam:hover {
+  cursor: pointer;
+}
+
+.wrapperTriggerCam:hover .triggerCamera {
+  transform: translateY(10%);
+}
+
+.wrapperTriggerCam.pushed .triggerCamera {
+  transform: translateY(30%);
+}
+
+.polaroidWrapper {
+  position: absolute;
+  width: 20em;
+  height: 20em;
+  left: calc(50% - 10em); /* to center the picture */
+  border: 1em solid #ffffff;
+  border-bottom: 1.5em solid #ffffff;
+  /*overflow: hidden;*/
+  transform: translateY(calc(50% - 20em));
+  opacity: 0;
+  z-index: 5;
+}
+
+.polaroidSubWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.btnHeart {
+  background-color: #f8c5c2;
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  top: -1.5em;
+  right: -1.5em;
+  z-index: 30;
+  opacity: 0;
+  border-radius: 50em;
+  transition: opacity 0.5s;
+}
+
+.btnHeart.visible {
+  opacity: 1;
+}
+
+.btnHeart:hover {
+  cursor: pointer;
+}
+
+.pictoHeart {
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 2em;
+  text-align: center;
+  color: #e74c3c;
+  animation-name: heartBeating;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+.btnHeart:hover .pictoHeart {
+  animation-name: heartBeatingX2;
+  animation-duration: 1s;
+}
+
+@keyframes heartBeating {
+  0% {
+    transform: scale(1);
+  }
+  7% {
+    transform: scale(1.2);
+  }
+  12% {
+    transform: scale(1.1);
+  }
+  20% {
+    transform: scale(1.3);
+  }
+  60% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.99);
+  }
+}
+
+@keyframes heartBeatingX2 {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+.polaroidWrapper.appearing {
+  animation-name: polaroidAppearing;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+.polaroidWrapper.appearing.disappearing {
+  animation-name: polaroidDisappearing;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards; /* indicates how a CSS animation should apply styles to its target before and after its execution. */
+}
+
+.polaroidPhoto {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+@keyframes polaroidAppearing {
+  0% {
+    transform: translateY(calc(50% - 20em));
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(calc(50%));
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(50% - 24em)) scale(1.2);
+    opacity: 1;
+    z-index: 20;
+    box-shadow: 0 0 100px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes polaroidDisappearing {
+  0% {
+    transform: translateY(calc(50% - 24em)) scale(1.2);
+    opacity: 1;
+    z-index: 20;
+    box-shadow: 0 0 100px 30px rgba(0, 0, 0, 0.2);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(50% - 50em)) scale(1.2);
+    opacity: 0.5;
+    z-index: 20;
+    opacity: 0;
+  }
+}
+
